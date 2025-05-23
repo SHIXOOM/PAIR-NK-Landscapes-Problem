@@ -1,1 +1,1 @@
-# PAIR-NK-Landscapes-Problem
+# PAIR Benchmark
