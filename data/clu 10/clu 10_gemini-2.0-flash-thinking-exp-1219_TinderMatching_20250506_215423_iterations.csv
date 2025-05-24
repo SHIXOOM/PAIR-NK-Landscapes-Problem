@@ -1,8 +1,0 @@
-model,node number,problem,iteration,distance,optimal distance,gap,temperature,population size,variance
-gemini-2.0-flash-thinking-exp-1219,10,clu 10,1,196,179.0,9.5,1,16,395.33984375
-gemini-2.0-flash-thinking-exp-1219,10,clu 10,2,196,179.0,9.5,1,16,284.33984375
-gemini-2.0-flash-thinking-exp-1219,10,clu 10,3,193,179.0,7.82,1,16,169.625
-gemini-2.0-flash-thinking-exp-1219,10,clu 10,4,193,179.0,7.82,1,16,149.99609375
-gemini-2.0-flash-thinking-exp-1219,10,clu 10,5,190,179.0,6.15,1,16,114.12109375
-gemini-2.0-flash-thinking-exp-1219,10,clu 10,6,190,179.0,6.15,1,16,90.05859375
-gemini-2.0-flash-thinking-exp-1219,10,clu 10,7,190,179.0,6.15,1,16,90.05859375
