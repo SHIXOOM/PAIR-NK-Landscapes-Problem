@@ -248,7 +248,7 @@ class PAIRSolver(LLMTSPSolver):
 
     @staticmethod
     def _getGenerationVariance(populationDistances: list[float]) -> float:
-        return float(np.var(populationDistances))
+        return float(round(np.var(populationDistances), 2))
 
     @staticmethod
     def _calculateBestSolutionProportion(populationDistances: list[float]) -> float:

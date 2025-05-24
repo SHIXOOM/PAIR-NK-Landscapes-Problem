@@ -259,6 +259,10 @@ class PromptResponseManager:
         assignment = [
             facility for facility in assignment if facility in range(problemSize)
         ]
+        
+        # remove duplicates
+        assignment = list(dict.fromkeys(assignment))
+        
         # get the facilities in the assignment
         setAssignment = set(assignment)
         # get the facilities that are not in the assignment
@@ -269,4 +273,5 @@ class PromptResponseManager:
         random.shuffle(unavailableFacilities)
         # add the shuffled unavailable facilities to the assignment
         assignment.extend(unavailableFacilities)
-        return assignment
+        
+        return assignment 

@@ -40,7 +40,7 @@ class QAPProblem:
             Total cost of the assignment
         """
         if len(assignment) != self.n:
-            raise ValueError(f"Assignment must have length {self.n}")
+            raise ValueError(f"Assignment must have length {self.n}, current is {len(assignment)} \n assignment: {assignment}")
         
         total_cost = 0
         for i in range(self.n):
