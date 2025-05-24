@@ -106,7 +106,7 @@ class PAIRSolver(LLMTSPSolver):
                 generation % round(MAX_GENERATIONS / PHASES, 0) == 0
                 and currentModelTemperature - 0.05 > 0.1
             ):
-                currentModelTemperature -= 0.05
+                currentModelTemperature -= 0.125
                 self.model.configure(systemPrompt, currentModelTemperature)
 
             # update temperature and population size
