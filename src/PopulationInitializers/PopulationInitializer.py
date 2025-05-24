@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-import tsplib95
+from src.QAPLoader.QAPProblem import QAPProblem
 
 class PopulationInitializer(ABC):
     """ 
@@ -8,6 +8,6 @@ class PopulationInitializer(ABC):
     """
 
     @abstractmethod
-    def initialize(self, population_size: int, problem: tsplib95.models.StandardProblem) -> list[tuple[list,int]]:
+    def initialize(self, population_size: int, problem: QAPProblem) -> list[tuple[list,int]]:
         """ returns a list of tuples. each tuple contains a 1-based tsp trace and its length """
         pass

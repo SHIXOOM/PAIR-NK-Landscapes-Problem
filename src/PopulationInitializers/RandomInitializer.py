@@ -17,10 +17,10 @@ class RandomInitializer(PopulationInitializer):
         node_count = problem.n
         population = []
         for i in range(population_size * 6):
-            tour = [point for point in range(1, node_count + 1)]
+            tour: list[int] = [point for point in range(1, node_count + 1)]
             random.shuffle(tour)
-            trace_fitness = problem.calculate_cost(tour)
-            population.append((tour, trace_fitness[0]))
+            trace_fitness: int = problem.calculate_cost(tour)
+            population.append((tour, trace_fitness))
 
         population.sort(key=lambda x: x[1], reverse=True)
         population = population[-population_size:]      # This is necessairy, it takes the smallest "population_size" solutions.
