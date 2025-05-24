@@ -31,7 +31,7 @@ def get_experiment_inputs():
 
     models = [
         "gemini-2.0-flash-thinking-exp-1219",
-        "gemini-2.0-flash-exp",
+        "gemini-2.5-flash-preview-05-20",
         "gemini-2.5-flash-preview-04-17",
     ]
     model_name = select_option(models, "Select the model to use:")
@@ -70,7 +70,7 @@ def initialize_experiment(inputs):
     """ Initialize model """
     if inputs["model_name"] == "gemini-2.0-flash-thinking-exp-1219":
         model = Gemini("system_prompt", 1, inputs["model_name"])
-    elif inputs["model_name"] == "gemini-2.0-flash-exp":
+    elif inputs["model_name"] == "gemini-2.5-flash-preview-05-20":
         model = Gemini("system_prompt", 1, inputs["model_name"])
     elif inputs["model_name"] == "gemini-2.5-flash-preview-04-17":
         model = Gemini("system_prompt", 1, inputs["model_name"])

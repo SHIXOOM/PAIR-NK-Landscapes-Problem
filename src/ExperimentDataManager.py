@@ -46,7 +46,7 @@ class ExperimentDataManager:
         self.problemName = problemName
         self.modelName = modelName
         self.solverName = solverName
-        self.nodeCount = self.problem.dimension
+        self.nodeCount = self.problem.n
         self.optimalDistance = optimalDistance
         self.timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 
@@ -80,6 +80,7 @@ class ExperimentDataManager:
         distance: float,
         modelTemperature: float,
         generationVariance: float,
+        bestSolutionProportion: float,
         populationSize: int,
         optimalityGap: float,
     ) -> Dict[str, list]:
@@ -95,6 +96,7 @@ class ExperimentDataManager:
             "temperature": [modelTemperature],
             "population size": [populationSize],
             "variance": [generationVariance],
+            "best_solution_proportion": [bestSolutionProportion]
         }
 
     def _write_to_csv(self, file_path: Path, data: Dict[str, Any]) -> None:
@@ -118,6 +120,7 @@ class ExperimentDataManager:
         distance: int,
         modelTemperature: float,
         generationVariance: float,
+        bestSolutionProportion: float,
         populationSize: int,
         optimalityGap: float,
     ) -> None:
@@ -127,6 +130,7 @@ class ExperimentDataManager:
             distance,
             modelTemperature,
             generationVariance,
+            bestSolutionProportion,
             populationSize,
             optimalityGap,
         )

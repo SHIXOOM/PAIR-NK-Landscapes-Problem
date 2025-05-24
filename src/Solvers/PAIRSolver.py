@@ -21,17 +21,20 @@ class PAIRSolver(LLMTSPSolver):
     def solve(self, expDataManager: ExperimentDataManager) -> tuple[list[int], float]:
         problem: QAPProblem = expDataManager.problem
 
+        """ Temperature cool down phases """
+        PHASES = 10
+
         """ Set the maximum number of generations """
         MAX_GENERATIONS = 250
 
         """ Set the number of nodes in the problem """
         NODE_COUNT = problem.n
 
-        populationSize = 16
+        populationSize = 25
 
         """ Configure model with the system prompt and temperature """
         systemPrompt = PRManager.getSystemPrompt(populationSize=populationSize)
-        currentModelTemperature = 1
+        currentModelTemperature = 2
         self.model.configure(systemPrompt, currentModelTemperature)
 
         """ Initialize population and get the best solution length """
@@ -39,11 +42,6 @@ class PAIRSolver(LLMTSPSolver):
             populationSize, problem
         )
         bestSolutionLength = currentPopulation[-1][1]
-
-        """ Get points coordinates pairs """
-        pointsCoordinatesPairs = {
-            i: (j[0], j[1]) for i, j in problem.node_coords.items()
-        }
 
         """ Counter for how many consecutive bad iterations occured
         to update the model's temperature and population size """
@@ -59,12 +57,16 @@ class PAIRSolver(LLMTSPSolver):
             optimalityGap = PAIRSolver._calculateOptimalityGap(
                 bestSolutionLength, problem_optimal_distance
             )
+            bestSolutionProportion = PAIRSolver._calculateBestSolutionProportion(
+                [x[1] for x in currentPopulation]
+            )
 
             expDataManager.addIterationData(
                 generation,
                 bestSolutionLength,
                 currentModelTemperature,
                 variance,
+                bestSolutionProportion,
                 populationSize,
                 optimalityGap,
             )
@@ -95,10 +97,17 @@ class PAIRSolver(LLMTSPSolver):
                 problem,
                 currentPopulation,
                 NODE_COUNT,
-                pointsCoordinatesPairs,
                 populationSize,
                 expDataManager,
             )
+
+            # Cool temperature down over time
+            if (
+                generation % round(MAX_GENERATIONS / PHASES, 0)
+                and currentModelTemperature - 0.05 > 0.1
+            ):
+                currentModelTemperature -= 0.05
+                self.model.configure(systemPrompt, currentModelTemperature)
 
             # update temperature and population size
             currentModelTemperature, populationSize, worseIterations = (
@@ -141,13 +150,12 @@ class PAIRSolver(LLMTSPSolver):
         problem: QAPProblem,
         currentPopulation,
         NODE_COUNT,
-        pointsCoordinatesPairs,
         populationSize,
         expDataManager: ExperimentDataManager,
     ) -> list[tuple[list[int], float]]:
         # get new generation prompt
         newGenPrompt = PRManager.getNewGenerationPrompt(
-            currentPopulation, pointsCoordinatesPairs, populationSize
+            currentPopulation, NODE_COUNT, populationSize
         )
 
         # parse new generation traces
@@ -241,3 +249,12 @@ class PAIRSolver(LLMTSPSolver):
     @staticmethod
     def _getGenerationVariance(populationDistances: list[float]) -> float:
         return float(np.var(populationDistances))
+
+    @staticmethod
+    def _calculateBestSolutionProportion(populationDistances: list[float]) -> float:
+        populationDistances.sort()
+        return round(
+            populationDistances.count(populationDistances[0])
+            / len(populationDistances),
+            3,
+        )
