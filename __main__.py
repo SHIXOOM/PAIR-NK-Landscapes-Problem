@@ -4,7 +4,7 @@ from src.PopulationInitializers.RandomInitializer import RandomInitializer
 from src.PopulationInitializers.SAPopulationInitializer import (
     SAPopulationInitializer as SAInitializer,
 )
-from src.Solvers.TinderMatchingSolver import TinderMatchingSolver
+from Solvers.PAIRSolver import PAIRSolver
 
 
 def get_user_input(prompt):
@@ -26,7 +26,7 @@ def get_experiment_inputs():
         get_user_input("Enter the optimal solution for the problem: ")
     )
 
-    solvers = ["TinderMatching"]
+    solvers = ["PAIR_solver"]
     solver_name = select_option(solvers, "Select the solver to use:")
 
     models = [
@@ -78,8 +78,8 @@ def initialize_experiment(inputs):
         raise Exception("Model not found")
 
     """ Initialize solver"""
-    if inputs["solver_name"] == "TinderMatching":
-        solver = TinderMatchingSolver(model, population_initializer)
+    if inputs["solver_name"] == "PAIR_solver":
+        solver = PAIRSolver(model, population_initializer)
     else:
         raise Exception("Solver not found")
 
