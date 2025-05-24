@@ -4,7 +4,7 @@ from src.PopulationInitializers.RandomInitializer import RandomInitializer
 from src.PopulationInitializers.SAPopulationInitializer import (
     SAPopulationInitializer as SAInitializer,
 )
-from Solvers.PAIRSolver import PAIRSolver
+from src.Solvers.PAIRSolver import PAIRSolver
 
 
 def get_user_input(prompt):

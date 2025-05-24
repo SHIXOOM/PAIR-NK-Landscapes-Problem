@@ -45,7 +45,7 @@ class QAPProblem:
         total_cost = 0
         for i in range(self.n):
             for j in range(self.n):
-                total_cost += self.flow_matrix[i][j] * self.distance_matrix[assignment[i]][assignment[j]]
+                total_cost += self.flow_matrix[i][j] * self.distance_matrix[assignment[i]-1][assignment[j]-1]
         
         return total_cost
 

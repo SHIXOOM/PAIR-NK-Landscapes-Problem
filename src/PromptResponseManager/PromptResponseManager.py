@@ -166,7 +166,7 @@ class PromptResponseManager:
         """
 
         # Find all traces in the response -> list of strings, each string is a trace
-        assignments_strings = re.findall(r"<trace>(.*?)</trace>", response)
+        assignments_strings = re.findall(r"<assignment>(.*?)</assignment>", response)
         # Convert each trace string into a list of integers -> each integer is a point
         assignments = [
             list(map(lambda pointChar: int(pointChar), assignment_string.split(",")))

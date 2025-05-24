@@ -2,7 +2,7 @@ import time
 
 import numpy as np
 
-from QAPLoader.QAPProblem import QAPProblem
+from src.QAPLoader.QAPProblem import QAPProblem
 from src.ExperimentDataManager import ExperimentDataManager
 from src.Models.Model import Model
 from src.PopulationInitializers.PopulationInitializer import PopulationInitializer
@@ -103,7 +103,7 @@ class PAIRSolver(LLMTSPSolver):
 
             # Cool temperature down over time
             if (
-                generation % round(MAX_GENERATIONS / PHASES, 0)
+                generation % round(MAX_GENERATIONS / PHASES, 0) == 0
                 and currentModelTemperature - 0.05 > 0.1
             ):
                 currentModelTemperature -= 0.05

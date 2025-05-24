@@ -2,7 +2,7 @@ import numpy as np
 import requests
 import io
 from typing import Optional, Dict, List
-from QAPProblem import QAPProblem
+from src.QAPLoader.QAPProblem import QAPProblem
 
 class QAPLIBLoader:
     """
