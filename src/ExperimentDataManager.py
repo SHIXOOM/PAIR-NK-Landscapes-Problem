@@ -21,7 +21,7 @@ class ExperimentDataManager:
         problemName: str,
         modelName: str,
         optimalDistance: float,
-        solverName: str = "TinderMatching",
+        solverName: str = "PAIR_solver",
     ):
         # Initialize basic properties
         self._init_properties(
